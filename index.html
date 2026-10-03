@@ -1,1 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mind Milling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper: #ECEEE6;
+    --rule: #D7DCD0;
+    --ink: #17191A;
+    --ink-2: #2E3330;
+    --muted: #4F5550;
+    --line: #A9B0A6;
+    --accent: #B3261E;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    background-color: var(--paper);
+    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 31px, var(--rule) 31px, var(--rule) 32px);
+    color: var(--ink);
+    font-family: 'Archivo', system-ui, sans-serif;
+  }
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(20px, 5vw, 72px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(56px, 8vw, 104px);
+  }
+  .mono {
+    font-family: var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
 
+  header {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+    gap: 12px 32px; padding-bottom: 20px; border-bottom: 2px solid var(--ink);
+  }
+  .brand { font-size: 20px; font-weight: 800; font-stretch: 125%; letter-spacing: 0.04em; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 12px; letter-spacing: 0.06em; color: var(--muted); }
+  .live { color: var(--accent); }
+  .live::before { content: "●"; margin-right: 0.4em; animation: blink 2.4s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: 0.25; } }
+
+  .hero { display: flex; flex-direction: column; gap: 28px; }
+  .eyebrow { font-size: 13px; letter-spacing: 0.12em; color: var(--accent); }
+  h1 {
+    margin: 0; font-size: clamp(64px, 12vw, 176px); line-height: 0.88;
+    font-weight: 900; font-stretch: 62%; letter-spacing: -0.01em; text-transform: uppercase;
+  }
+  .lede { margin: 0; max-width: 34ch; font-size: clamp(18px, 2vw, 22px); line-height: 1.5; color: var(--ink-2); }
+
+  .ledger-head {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--ink); font-size: 12px;
+  }
+  .ledger-head span:last-child { color: var(--muted); }
+  .row { display: flex; flex-wrap: wrap; gap: 20px 40px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+  .file { flex: 0 0 120px; display: flex; flex-direction: column; gap: 6px; font-family: var(--mono); }
+  .file b { font-size: 15px; font-weight: 500; }
+  .file small { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .chain { flex: 999 1 560px; min-width: 0; display: flex; flex-wrap: wrap; gap: 16px 12px; align-items: center; }
+  .cell { flex: 1 1 170px; min-width: 0; display: flex; align-items: center; gap: 12px; }
+  .cell svg { flex: none; }
+  .cell-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .cell-head { font-size: 11px; color: var(--muted); }
+
+  .bar {
+    height: 44px; padding: 11px 0; margin: 0; background: transparent; border: 0;
+    cursor: pointer; display: flex; align-items: center;
+  }
+  .bar span { display: block; height: 22px; background: var(--ink); transition: opacity 0.2s; }
+  .bar:hover span { opacity: 0.85; }
+  .bar:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .bar.peek span { display: none; }
+  .bar.peek::after {
+    content: "[ not yet ]"; font-family: var(--mono); font-size: 14px; color: var(--accent);
+  }
+
+  .sections { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; }
+  .section { display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 2px solid var(--ink); }
+  .section-top { display: flex; justify-content: space-between; font-size: 12px; }
+  .section-top span:last-child { color: var(--muted); }
+  .section-top .on { color: var(--accent); }
+  .section h2 { margin: 0; font-size: 30px; font-weight: 800; font-stretch: 75%; text-transform: uppercase; }
+  .section p { margin: 0; font-size: 16px; line-height: 1.5; color: var(--ink-2); }
+
+  footer {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
+    padding-top: 20px; border-top: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: var(--muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) { .live::before { animation: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">MIND MILLING</div>
+    <div class="meta mono">
+      <span>Durham, North Carolina</span>
+      <span>Ledger opened 2026</span>
+      <span class="live">Milling</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow mono">File 00 — Pre-release</div>
+    <h1>Pull the<br>thread.</h1>
+    <p class="lede">Something is being milled here. It isn’t ready, so the ledger stays redacted.</p>
+  </section>
+
+  <section aria-label="The ledger">
+    <div class="ledger-head mono">
+      <span>The ledger</span>
+      <span>3 open files · tap a bar to peek</span>
+    </div>
+    <div id="ledger"></div>
+  </section>
+
+  <section class="sections">
+    <div class="section">
+      <div class="section-top mono"><span>01</span><span>Sealed</span></div>
+      <h2>Dispatches</h2>
+      <p>Every other week. Eventually.</p>
+    </div>
+    <div class="section">
+      <div class="section-top mono"><span>02</span><span class="on">Running</span></div>
+      <h2>Workshop</h2>
+      <p>Tools, built quietly.</p>
+    </div>
+    <div class="section">
+      <div class="section-top mono"><span>03</span><span>Someday</span></div>
+      <h2>Long form</h2>
+      <p>Not yet written. Not yet ruled out.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>Nothing to sign up for. Yet.</span>
+    <span>© <span id="year">2026</span> Mind Milling</span>
+  </footer>
+
+</div>
+
+<script>
+  const heads = ['On the shelf', 'Made by', 'Rolled up into', 'Owned by'];
+  const files = [
+    { label: 'File 001', status: 'Open',   widths: [98, 132, 104, 150] },
+    { label: 'File 002', status: 'Open',   widths: [146, 96, 146, 118] },
+    { label: 'File 003', status: 'Intake', widths: [124, 110, 88, 140] }
+  ];
+  const arrow = '<svg width="28" height="14" viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--accent)"><path d="M1 7h25M20 1.5l6 5.5-6 5.5"/></svg>';
+
+  document.getElementById('ledger').innerHTML = files.map(f => `
+    <div class="row">
+      <div class="file"><b>${f.label}</b><small>${f.status}</small></div>
+      <div class="chain">
+        ${heads.map((h, i) => `
+          <div class="cell">
+            ${i > 0 ? arrow : ''}
+            <div class="cell-body">
+              <span class="cell-head mono">${h}</span>
+              <button type="button" class="bar" aria-label="Redacted. Tap to peek."><span style="width:${f.widths[i]}px"></span></button>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+
+  document.querySelectorAll('.bar').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('peek')) return;
+      btn.classList.add('peek');
+      setTimeout(() => btn.classList.remove('peek'), 1600);
+    });
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
